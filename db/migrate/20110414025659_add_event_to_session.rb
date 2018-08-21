@@ -1,4 +1,4 @@
-class AddEventToSession < ActiveRecord::Migration
+class AddEventToSession < ActiveRecord::Migration[5.1]
   def self.up
     add_column :sessions, :event_id, :int
   end

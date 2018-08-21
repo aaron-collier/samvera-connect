@@ -1,4 +1,4 @@
-class CreateTimeslots < ActiveRecord::Migration
+class CreateTimeslots < ActiveRecord::Migration[5.1]
   def self.up
     create_table :timeslots do |t|
       t.belongs_to :event, :null => false

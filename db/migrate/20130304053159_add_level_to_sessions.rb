@@ -1,4 +1,4 @@
-class AddLevelToSessions < ActiveRecord::Migration
+class AddLevelToSessions < ActiveRecord::Migration[5.1]
   def change
     change_table :sessions do |t|
       t.belongs_to :level
