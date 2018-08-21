@@ -8,21 +8,20 @@
         = pill_label(slot)
   .maps
     %a.room{ target: '_blank',
-             href: "#{asset_path('maps/map_hub.svg')}" }
+             href: "#{asset_path('https://lib.utah.edu/info/library-maps.php')}" }
       Map
-    %a.room{ target: '_blank',
-             href: "#{asset_path('maps/map_b1.svg')}" }
-      LI Map
 
     %a.room{ target: '_blank',
-             href: "http://minnestar.org/minnebar-faq/" }
-      FAQ
+             href: "#{asset_path('https://connect2018.lib.utah.edu')}" }
+
+      Conference Info
+
+      %a.room{ target: '_blank',
+               href: "#{asset_path('https://wiki.duraspace.org/display/samvera/Samvera+Connect+2018')}" }
+
+        Conference Wiki
 
     %a.twitter{  :target => '_blank',
-                 :href => "https://twitter.com/#minnebar" }
+                 :href => "https://twitter.com/#samvera2018" }
       :escaped
-        #minnebar
-
-    %a.feedback{ :target => '_blank',
-                 :href => 'http://minnebar2018.voicehive.com' }
-      Feedback
+        #samvera2018
