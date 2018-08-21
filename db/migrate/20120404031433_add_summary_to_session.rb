@@ -1,4 +1,4 @@
-class AddSummaryToSession < ActiveRecord::Migration
+class AddSummaryToSession < ActiveRecord::Migration[5.1]
   def self.up
     add_column :sessions, :summary, :string
   end

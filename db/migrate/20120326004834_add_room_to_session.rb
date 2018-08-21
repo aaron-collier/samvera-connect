@@ -1,4 +1,4 @@
-class AddRoomToSession < ActiveRecord::Migration
+class AddRoomToSession < ActiveRecord::Migration[5.1]
   def self.up
     add_column :sessions, :room_id, :integer
   end

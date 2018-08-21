@@ -1,4 +1,4 @@
-class CreateCategorizations < ActiveRecord::Migration
+class CreateCategorizations < ActiveRecord::Migration[5.1]
   def self.up
     create_table :categorizations do |t|
       t.integer :category_id, :null => false

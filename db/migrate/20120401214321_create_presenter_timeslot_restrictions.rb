@@ -1,4 +1,4 @@
-class CreatePresenterTimeslotRestrictions < ActiveRecord::Migration
+class CreatePresenterTimeslotRestrictions < ActiveRecord::Migration[5.1]
   def self.up
     create_table :presenter_timeslot_restrictions, :force => true do |t|
       t.integer :participant_id
