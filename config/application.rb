@@ -18,5 +18,7 @@ module Sessionizer
     # the use is located.
 
     config.time_zone = 'US/Central'
+
+    config.assets.initialize_on_precompile = false
   end
 end
