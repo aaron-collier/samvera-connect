@@ -1,0 +1,231 @@
+DEPRECATION WARNING: ActiveSupport.halt_callback_chains_on_return_false= is deprecated and will be removed in Rails 5.2. (called from <top (required)> at /srv/sessionizer/config/initializers/new_framework_defaults.rb:23)
+  [1m[35m (11.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-08-07 16:30:11.803476"], ["updated_at", "2018-08-07 16:30:11.803476"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+DEPRECATION WARNING: ActiveSupport.halt_callback_chains_on_return_false= is deprecated and will be removed in Rails 5.2. (called from <top (required)> at /srv/sessionizer/config/initializers/new_framework_defaults.rb:23)
+  [1m[35mSQL (0.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "attendances" CASCADE[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "attendances" ("id" bigserial primary key, "session_id" integer NOT NULL, "participant_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_attendances_on_session_id_and_participant_id" ON "attendances" USING btree ("session_id", "participant_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "name" character varying(255) NOT NULL)[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_categories_on_name" ON "categories" USING btree ("name")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "categorizations" CASCADE[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "categorizations" ("id" bigserial primary key, "category_id" integer NOT NULL, "session_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_categorizations_on_category_id_and_session_id" ON "categorizations" USING btree ("category_id", "session_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "events" CASCADE[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "events" ("id" bigserial primary key, "name" character varying(255) NOT NULL, "date" date NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "levels" CASCADE[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "levels" ("id" bigserial primary key, "name" character varying(255))[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "participants" CASCADE[0m
+  [1m[35m (4.6ms)[0m  [1m[35mCREATE TABLE "participants" ("id" bigserial primary key, "name" character varying(255), "email" character varying(255), "bio" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "crypted_password" character varying(255), "persistence_token" character varying(255), "perishable_token" character varying(255) DEFAULT '' NOT NULL, "github_profile_username" character varying, "github_og_image" character varying, "github_og_url" character varying, "twitter_handle" character varying)[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_participants_on_email" ON "participants" USING btree ("email")[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE  INDEX  "index_participants_on_perishable_token" ON "participants" USING btree ("perishable_token")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "presentations" CASCADE[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "presentations" ("id" bigserial primary key, "session_id" integer, "participant_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "presenter_timeslot_restrictions" CASCADE[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "presenter_timeslot_restrictions" ("id" bigserial primary key, "participant_id" integer, "timeslot_id" integer, "weight" float, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "present_timeslot_participant_unique" ON "presenter_timeslot_restrictions" USING btree ("timeslot_id", "participant_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "rooms" CASCADE[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "rooms" ("id" bigserial primary key, "event_id" integer NOT NULL, "name" character varying(255) NOT NULL, "capacity" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "schedulable" boolean DEFAULT 't')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "sessions" CASCADE[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "sessions" ("id" bigserial primary key, "participant_id" integer NOT NULL, "title" character varying(255) NOT NULL, "description" text NOT NULL, "panel" boolean DEFAULT 'f' NOT NULL, "projector" boolean DEFAULT 'f' NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "event_id" integer, "timeslot_id" integer, "room_id" integer, "summary" character varying(255), "level_id" integer, "manually_scheduled" boolean DEFAULT 'f' NOT NULL, "manual_attendance_estimate" integer)[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE  INDEX  "index_sessions_on_level_id" ON "sessions" USING btree ("level_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "settings" CASCADE[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "settings" ("id" bigserial primary key, "show_schedule" boolean, "current_event_id" integer)[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE  INDEX  "index_settings_on_current_event_id" ON "settings" USING btree ("current_event_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "timeslots" CASCADE[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "timeslots" ("id" bigserial primary key, "event_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "starts_at" timestamp, "ends_at" timestamp, "schedulable" boolean DEFAULT 't', "title" character varying)[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20170324203935)[0m
+  [1m[35m (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20130304053929),
+(20150319011702),
+(20120326004820),
+(20100414215724),
+(20120330060456),
+(20120403022345),
+(20120326004834),
+(20130304053159),
+(20100423205652),
+(20120401214321),
+(20120326003621),
+(20150920192518),
+(20150414022055),
+(20110414023923),
+(20120325234743),
+(20160420042853),
+(20110414025659),
+(20120404031433),
+(20100414231806),
+(20150911192254),
+(20160319173736),
+(20100423214500),
+(20130224225306),
+(20100414224830);
+
+[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "attendances" CASCADE[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE TABLE "attendances" ("id" bigserial primary key, "session_id" integer NOT NULL, "participant_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_attendances_on_session_id_and_participant_id" ON "attendances" USING btree ("session_id", "participant_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "name" character varying(255) NOT NULL)[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_categories_on_name" ON "categories" USING btree ("name")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "categorizations" CASCADE[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "categorizations" ("id" bigserial primary key, "category_id" integer NOT NULL, "session_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_categorizations_on_category_id_and_session_id" ON "categorizations" USING btree ("category_id", "session_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "events" CASCADE[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "events" ("id" bigserial primary key, "name" character varying(255) NOT NULL, "date" date NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "levels" CASCADE[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "levels" ("id" bigserial primary key, "name" character varying(255))[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "participants" CASCADE[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "participants" ("id" bigserial primary key, "name" character varying(255), "email" character varying(255), "bio" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "crypted_password" character varying(255), "persistence_token" character varying(255), "perishable_token" character varying(255) DEFAULT '' NOT NULL, "github_profile_username" character varying, "github_og_image" character varying, "github_og_url" character varying, "twitter_handle" character varying)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_participants_on_email" ON "participants" USING btree ("email")[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "index_participants_on_perishable_token" ON "participants" USING btree ("perishable_token")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "presentations" CASCADE[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE TABLE "presentations" ("id" bigserial primary key, "session_id" integer, "participant_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "presenter_timeslot_restrictions" CASCADE[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "presenter_timeslot_restrictions" ("id" bigserial primary key, "participant_id" integer, "timeslot_id" integer, "weight" float, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE UNIQUE INDEX  "present_timeslot_participant_unique" ON "presenter_timeslot_restrictions" USING btree ("timeslot_id", "participant_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "rooms" CASCADE[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "rooms" ("id" bigserial primary key, "event_id" integer NOT NULL, "name" character varying(255) NOT NULL, "capacity" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "schedulable" boolean DEFAULT 't')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "sessions" CASCADE[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "sessions" ("id" bigserial primary key, "participant_id" integer NOT NULL, "title" character varying(255) NOT NULL, "description" text NOT NULL, "panel" boolean DEFAULT 'f' NOT NULL, "projector" boolean DEFAULT 'f' NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "event_id" integer, "timeslot_id" integer, "room_id" integer, "summary" character varying(255), "level_id" integer, "manually_scheduled" boolean DEFAULT 'f' NOT NULL, "manual_attendance_estimate" integer)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_sessions_on_level_id" ON "sessions" USING btree ("level_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "settings" CASCADE[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE "settings" ("id" bigserial primary key, "show_schedule" boolean, "current_event_id" integer)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_settings_on_current_event_id" ON "settings" USING btree ("current_event_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "timeslots" CASCADE[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "timeslots" ("id" bigserial primary key, "event_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "starts_at" timestamp, "ends_at" timestamp, "schedulable" boolean DEFAULT 't', "title" character varying)[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20170324203935)[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20130304053929),
+(20150319011702),
+(20120326004820),
+(20100414215724),
+(20120330060456),
+(20120403022345),
+(20120326004834),
+(20130304053159),
+(20100423205652),
+(20120401214321),
+(20120326003621),
+(20150920192518),
+(20150414022055),
+(20110414023923),
+(20120325234743),
+(20160420042853),
+(20110414025659),
+(20120404031433),
+(20100414231806),
+(20150911192254),
+(20160319173736),
+(20100423214500),
+(20130224225306),
+(20100414224830);
+
+[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-08-07 16:30:15.407704"], ["updated_at", "2018-08-07 16:30:15.407704"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mLevel Load (0.3ms)[0m  [1m[34mSELECT  "levels".* FROM "levels" WHERE "levels"."id" = $1 ORDER BY "levels"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "levels" ("id", "name") VALUES ($1, $2) RETURNING "id"[0m  [["id", 1], ["name", "Beginner"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mLevel Load (0.3ms)[0m  [1m[34mSELECT  "levels".* FROM "levels" WHERE "levels"."id" = $1 ORDER BY "levels"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "levels" ("id", "name") VALUES ($1, $2) RETURNING "id"[0m  [["id", 2], ["name", "Intermediate"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mLevel Load (0.3ms)[0m  [1m[34mSELECT  "levels".* FROM "levels" WHERE "levels"."id" = $1 ORDER BY "levels"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "levels" ("id", "name") VALUES ($1, $2) RETURNING "id"[0m  [["id", 3], ["name", "Advanced"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mLevel Load (0.3ms)[0m  [1m[34mSELECT  "levels".* FROM "levels" WHERE "levels"."id" = $1 ORDER BY "levels"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "levels" ("id", "name") VALUES ($1, $2) RETURNING "id"[0m  [["id", 4], ["name", "All levels"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("id", "name") VALUES ($1, $2) RETURNING "id"[0m  [["id", 1], ["name", "Design"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("id", "name") VALUES ($1, $2) RETURNING "id"[0m  [["id", 2], ["name", "Development"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("id", "name") VALUES ($1, $2) RETURNING "id"[0m  [["id", 3], ["name", "Hardware"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("id", "name") VALUES ($1, $2) RETURNING "id"[0m  [["id", 4], ["name", "Startups"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("id", "name") VALUES ($1, $2) RETURNING "id"[0m  [["id", 5], ["name", "Other"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+DEPRECATION WARNING: ActiveSupport.halt_callback_chains_on_return_false= is deprecated and will be removed in Rails 5.2. (called from <top (required)> at /srv/sessionizer/config/initializers/new_framework_defaults.rb:23)
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.0ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+DEPRECATION WARNING: ActiveSupport.halt_callback_chains_on_return_false= is deprecated and will be removed in Rails 5.2. (called from <top (required)> at /srv/sessionizer/config/initializers/new_framework_defaults.rb:23)
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (5036.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "sessionizer_development"[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 ORDER BY "categories"."id" ASC LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+DEPRECATION WARNING: ActiveSupport.halt_callback_chains_on_return_false= is deprecated and will be removed in Rails 5.2. (called from <top (required)> at /srv/sessionizer/config/initializers/new_framework_defaults.rb:23)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (5038.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "sessionizer_development"[0m

@@ -1,0 +1,59 @@
+<% title(@participant.name) %>
+
+<% content_for :edit do %>
+  <% edit(@participant) do %>
+    <span><%= link_to 'edit your profile', edit_participant_path(@participant), class: "smaller" %></span>
+  <% end %>
+<% end %>
+
+<div class="row">
+  <% if @participant.github_profile_username.present? %>
+    <div class="grid_2 column">
+      <h4>GitHub:</h4>
+      <div><%= link_to @participant.github_profile_username, @participant.github_profile_url, target: "blank" %></div>
+    </div>
+  <% end %>
+
+  <% if @participant.twitter_handle.present? %>
+    <div class="grid_3 column">
+      <h4>Twitter:</h4>
+      <div>@<%= @participant.twitter_handle %></div>
+    </div>
+  <% end %>
+</div>
+
+<div class="row bio">
+  <h4>Bio</h4>
+
+  <% if @participant.bio.blank? %>
+    <p>This user hasn't yet added a bio.</p>
+  <% else %>
+    <%= markdown @participant.bio %>
+  <% end %>
+</div>
+
+<hr/>
+
+<div class="column grid_5">
+  <h3>Presenting Sessions</h3>
+
+  <% if @participant.sessions_presenting.empty? %>
+    <p>This person isn't presenting any sessions.</p>
+  <% end %>
+
+  <ul class="sessionsList">
+    <%= render :partial => 'session', :collection => @participant.sessions_presenting.for_current_event %>
+  </ul>
+</div>
+
+<div class="column grid_5">
+  <h3>Participating Sessions</h3>
+
+  <% if @participant.sessions_attending.empty? %>
+    <p>This person hasn't expressed interested in any sessions yet.</p>
+  <% end %>
+ 
+  <ul class="sessionsList">
+    <%= render :partial => 'session', :collection => @participant.sessions_attending.for_current_event %>
+  </ul>
+</div>

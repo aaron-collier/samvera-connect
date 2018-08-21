@@ -1,0 +1,44 @@
+@media all and (max-width: 58em)
+  #schedule-body
+    .schedule-header
+      h1
+        font-size: 1.5em
+      .controls
+        font-size: 75% !important
+
+@media all and (max-width: 40em)
+  .nav-top
+    font-size: 90%
+    .maps
+      float: left !important
+  #schedule-body
+    .schedule-header
+      text-align: center
+      padding-bottom: 1em
+      .controls
+        float: none
+        margin: 3em 0 2em
+        a
+          padding: 0.6ex 1em
+      .hint
+        clear: both
+    .schedule
+      .timeslot
+        h2
+          font-size: 1.4em !important
+        .sessions
+          .column
+            width: 98% !important  // padding is 1% on each side
+            .session
+              padding: 1.4ex
+              .toggle-attendance
+                float: right
+                margin: 0 0 0.5em 1em
+                left: 0
+              .room
+                padding-top: 0  // because * is on right now, and baseline-aligned room looks funny next to it
+
+@media all and (max-width: 29em)
+  #schedule-body
+    .schedule-header
+      padding-top: 3em

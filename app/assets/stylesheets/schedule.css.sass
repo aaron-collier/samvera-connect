@@ -1,0 +1,197 @@
+#schedule-body
+  $heading-background: #676ab1
+
+  margin: 0
+  padding: 0
+  
+  .nav-top
+    position: fixed
+    top: 0
+    left: 0
+    width: 98%
+    font:
+      family: 'Helvetica Neue', 'Verdana', sans-serif
+      weight: bold
+    color: white
+    padding: 0.6em 2%
+    box-shadow: 0 -0.2ex 1ex black
+    background: mix($heading-background, black)
+    z-index: 1000  // or relative-positioned favorite icons float over it
+
+    a
+      float: left
+      padding: 0 1ex
+      text-decoration: none
+      border-radius: 1em
+      &:link, &:hover, &:active, &:visited
+        color: white
+
+    .timeslots
+      float: left
+    .maps
+      float: right
+
+    .timeslots .timeslot
+      &.selected
+        background: white
+        color: #667 !important
+      &.now
+        color: #FE8
+      &.now.selected
+        color: #9c8c29 !important
+        
+  
+  .schedule-header
+    padding: 4em 2em
+    padding-top: 6em
+    background: $heading-background
+    color: white
+    a
+      color: white
+      font-weight: 600
+    h1
+      margin: 0
+      padding: 0
+      color: white
+      font:
+        family: 'Helvetica Neue', 'Verdana', sans-serif
+        weight: bold
+        size: 2em
+    p
+      margin: 1em 0 0 0
+    
+    .hint
+      margin: 1ex 0
+      color: #ccc
+      font:
+        family: 'Helvetica Neue', 'Verdana', sans-serif
+        size: 90%
+    
+    .controls
+      float: right
+      a
+        display: inline-block
+        margin-right: 1em
+        padding: 1ex 1em
+        border-radius: 2em
+        border: 0.5px solid rgba(0, 0, 0, 0.5)
+        background: #e8e8e8
+        color: #003
+        white-space: nowrap
+        text-decoration: none
+        font:
+          family: 'Lucida Grande', 'Verdana', sans-serif
+          weight: bold
+        &:active
+          background: #333
+          color: white
+      a.disabled
+        color: #AAA
+        border-color: #AAA
+  
+  .schedule
+    .timeslot
+      clear: both
+      border-top: 0.5px solid mix($heading-background, black)
+      &:first-child
+        padding-top: 0
+      h2
+        font:
+          family: 'Helvetica Neue', 'Verdana', sans-serif
+          size: 1.8em !important
+        color: white
+        margin: 0
+        font-weight: bold
+        padding: 0.8em 1em
+        background: $heading-background
+        .time, .title
+          display: inline-block
+          vertical-align: top
+        .time
+          font-weight: bold
+        .title
+          margin-left: 1em
+          font-weight: normal
+          color: rgba(255, 255, 255, 0.75)
+    
+      .sessions
+        clear: both
+        padding: 0 1%
+        .column
+          float: left
+          width: 48%
+          margin: 0
+          padding: 0.5em 1%
+          .session
+            padding: 1.6ex
+            padding-left: 2.2em
+            &:last-child
+              border: none
+            .header
+              cursor: pointer
+            .title
+              color: #111
+              font:
+                family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue', 'Verdana', sans-serif
+                weight: Bold
+                size: 1.4em !important
+              padding: 0
+              margin: 0
+              font-size: 1.2em
+              &:hover
+                color: #454689
+            .room
+              font:
+                family: 'Gill Sans', 'Futura', 'Tahoma', sans-serif
+                size: 0.8em
+              text-transform: uppercase
+              color: #acaa48
+              float: right
+              font-size: 0.9em
+              padding-left: 1ex
+              padding-top: 0.4em
+              &:hover
+                text-decoration: underline
+            .presenters, .summary
+              color: #555
+            .presenters
+              display: inline
+              font:
+                family: 'HelveticaNeue-Medium', 'Helvetica Neue', 'Verdana', sans-serif
+                weight: Medium
+              .presenter
+                display: inline
+                &:after
+                  content: ','
+                &:last-child:after
+                  content: ''
+            .summary
+              font:
+                family: 'HelveticaNeue-Light', 'Helvetica Neue', 'Verdana', sans-serif
+                weight: Light
+              weight: 'Medium'
+              white-space: nowrap
+              overflow: hidden
+              text-overflow: ellipsis
+              margin: 0
+            .description
+              display: none
+              font:
+                family: 'Helvetica Neue', 'Verdana', sans-serif
+              p, ul
+                margin: 0.6em 0
+              img
+                max-width: 100%
+              .bios
+                margin: 1.4em 0
+                padding: 0.4em 1.2em
+                background: #F0F0F0
+                border: 1px solid #ccc
+                border-radius: 1em
+                font-size: 92%
+                .name
+                  font-weight: bold
+                  margin-top: 0.6em
+
+  .clr
+    clear: both
