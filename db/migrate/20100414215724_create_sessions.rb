@@ -1,4 +1,4 @@
-class CreateSessions < ActiveRecord::Migration[5.1]
+class CreateSessions < ActiveRecord::Migration[4.2]
   def self.up
     create_table :sessions do |t|
       t.belongs_to :participant, :null => false
@@ -6,7 +6,7 @@ class CreateSessions < ActiveRecord::Migration[5.1]
       t.text :description, :null => false
       t.boolean :panel, :null => false, :default => false
       t.boolean :projector, :null => false, :default => false
-      
+
       t.timestamps
     end
   end

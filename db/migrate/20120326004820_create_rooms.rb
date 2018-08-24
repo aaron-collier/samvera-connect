@@ -1,4 +1,4 @@
-class CreateRooms < ActiveRecord::Migration[5.1]
+class CreateRooms < ActiveRecord::Migration[4.2]
   def self.up
     create_table :rooms do |t|
       t.belongs_to :event, :null => false
