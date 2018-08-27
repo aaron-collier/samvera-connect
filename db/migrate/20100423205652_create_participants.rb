@@ -1,4 +1,4 @@
-class CreateParticipants < ActiveRecord::Migration[5.1]
+class CreateParticipants < ActiveRecord::Migration[4.2]
   def self.up
     create_table :participants do |t|
       t.string :name

@@ -79,4 +79,3 @@ Shoulda::Matchers.configure do |config|
     with.library :action_controller
   end
 end
-
